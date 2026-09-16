@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Determinador | Víctor Siu</title>
+
+<!-- ═══════════════════════════════════════════════════
+     Hola, curioso/a 👋
+     Esta app fue creada por Víctor Manuel Siu Puyén
+     Fiscal — Fiscalía de Piura, Perú
+     Contacto: https://wa.me/51969761336
+     Hecha con amor para Cindy, Andrés y Abril ❤️
+     "Pena concreta fácilmente."
+     ID: VMSIUP-DET-v3 © 2025
+═══════════════════════════════════════════════════ -->
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1A1A2E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Determinador">
+<meta name="description" content="Pena concreta fácilmente. Por Víctor Siu, Fiscal de Piura.">
+
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- Banner offline -->
+<div id="offlineBanner">⚠️ Sin conexión a internet — la app funciona en modo offline</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+
+    <!-- Avatar con iniciales VS -->
+    <div class="avatar-vs" aria-hidden="true">VS</div>
+
+    <!-- Datos del autor -->
+    <div class="header-texts">
+      <div class="header-autor">Víctor Manuel Siu Puyén</div>
+      <h1>DETERMINADOR</h1>
+      <div class="header-sub">Pena concreta fácilmente</div>
+    </div>
+
+    <!-- Toggle modo oscuro -->
+    <div class="theme-switcher">
+      <label class="switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="slider"></span>
+      </label>
+      <span>Modo oscuro</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="tab-ppl">⚖️ Pena Privativa de Libertad</button>
+    <button class="tab-btn" data-tab="tab-multa">💰 Días-Multa</button>
+  </nav>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container">
+
+  <!-- Créditos -->
+  <section id="creditos">
+    <div class="creditos-inner">
+      <p>Creado por <strong>Víctor Manuel Siu Puyén</strong>. Dedicado a <strong>Cindy, Andrés y Abril</strong>.</p>
+      <p>Obtén paso a paso la pena privativa de libertad concreta a imponer considerando las diversas circunstancias que afectan la responsabilidad penal y el sistema de determinación.</p>
+      <p><a href="https://wa.me/51969761336">📲 Contáctame por WhatsApp</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       TAB 1 — PENA PRIVATIVA DE LIBERTAD
+  ══════════════════════════════════════════════ -->
+  <div id="tab-ppl" class="tab-content active">
+    <main id="main-ppl">
+
+      <!-- MÓDULO 01: Pena Abstracta -->
+      <section id="module01">
+        <h2>Pena abstracta del tipo penal</h2>
+        <div class="input-group">
+          <p class="instruction">Ingresa los extremos mínimo y máximo de la pena abstracta del tipo penal</p>
+          <div class="pena-inputs">
+            <fieldset>
+              <legend>Extremo mínimo del tipo</legend>
+              <div class="fields">
+                <input type="number" id="minAnos"  placeholder="Años"  min="0" inputmode="numeric">
+                <input type="number" id="minMeses" placeholder="Meses" min="0" max="11" inputmode="numeric">
+                <input type="number" id="minDias"  placeholder="Días"  min="0" max="29" inputmode="numeric">
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Extremo máximo del tipo</legend>
+              <div class="fields">
+                <input type="number" id="maxAnos"  placeholder="Años"  min="0" inputmode="numeric">
+                <input type="number" id="maxMeses" placeholder="Meses" min="0" max="11" inputmode="numeric">
+                <input type="number" id="maxDias"  placeholder="Días"  min="0" max="29" inputmode="numeric">
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="circunstancias">¿Tienes circunstancias agravantes cualificadas o atenuantes privilegiadas?</label>
+          <select id="circunstancias">
+            <option value="" selected disabled>Seleccione una opción</option>
+            <option value="no">No</option>
+            <option value="incremento">Sí, por encima del máximo legal</option>
+            <option value="disminucion">Sí, por debajo del mínimo legal</option>
+            <option value="ambas">Sí, ambas</option>
+          </select>
+        </div>
+
+        <!-- Sub: Solo incremento -->
+        <div id="submoduloIncremento" class="submodule hidden">
+          <h3 class="submodule-title">Incremento sobre el máximo</h3>
+          <div class="checkbox-group">
+            <div><label><input type="checkbox" name="incrementoFactor" value="2"> 2x (Uso de menor cualificado)</label></div>
+            <div><label><input type="checkbox" name="incrementoFactor" value="2/3"> 2/3 (Reincidencia agravada)</label></div>
+            <div><label><input type="checkbox" name="incrementoFactor" value="1/2"> 1/2 (Reincidencia simple, Habitualidad agravada, Funcionario o servidor, Uso de menor agravado)</label></div>
+            <div><label><input type="checkbox" name="incrementoFactor" value="1/3"> 1/3 (Habitualidad simple, Uso de menor simple, Parentesco)</label></div>
+          </div>
+          <button id="btnCalcularIncremento" class="main-button">Calcular</button>
+        </div>
+
+        <!-- Sub: Solo disminución -->
+        <div id="submoduloDisminucion" class="submodule hidden">
+          <h3 class="submodule-title">Disminución bajo el mínimo</h3>
+          <div class="checkbox-group">
+            <div><label><input type="checkbox" name="disminucionFactor" value="2/3"> 2/3 (Delito crediticio)</label></div>
+            <div><label><input type="checkbox" name="disminucionFactor" value="1/2"> 1/2 (Tentativa de delito menos grave)</label></div>
+            <div><label><input type="checkbox" name="disminucionFactor" value="1/3"> 1/3 (Tentativa de delito grave, Tentativa especial, Violencia insignificante abigeato, Confesión sincera, Edad)</label></div>
+            <div><label><input type="checkbox" name="disminucionFactor" value="1/6"> 1/6 (Tentativa de delito especialmente grave)</label></div>
+          </div>
+          <button id="btnCalcularDisminucion" class="main-button">Calcular</button>
+        </div>
+
+        <!-- Sub: Ambas -->
+        <div id="submoduloAmbas" class="submodule hidden">
+          <div id="submoduloIncrementoAmbas">
+            <h3 class="submodule-title">Paso 1: Incremento</h3>
+            <div class="checkbox-group">
+              <div><label><input type="checkbox" name="incrementoFactorAmbas" value="2"> 2x (Uso de menor cualificado)</label></div>
+              <div><label><input type="checkbox" name="incrementoFactorAmbas" value="2/3"> 2/3 (Reincidencia agravada)</label></div>
+              <div><label><input type="checkbox" name="incrementoFactorAmbas" value="1/2"> 1/2 (Reincidencia simple, Habitualidad agravada, Funcionario o servidor, Uso de menor agravado)</label></div>
+              <div><label><input type="checkbox" name="incrementoFactorAmbas" value="1/3"> 1/3 (Habitualidad simple, Uso de menor simple, Parentesco)</label></div>
+            </div>
+          </div>
+          <div id="submoduloDisminucionAmbas">
+            <h3 class="submodule-title">Paso 2: Disminución</h3>
+            <div class="checkbox-group">
+              <div><label><input type="checkbox" name="disminucionFactorAmbas" value="2/3"> 2/3 (Delito crediticio)</label></div>
+              <div><label><input type="checkbox" name="disminucionFactorAmbas" value="1/2"> 1/2 (Tentativa de delito menos grave)</label></div>
+              <div><label><input type="checkbox" name="disminucionFactorAmbas" value="1/3"> 1/3 (Tentativa de delito grave, Tentativa especial, Violencia insignificante abigeato, Confesión sincera, Edad)</label></div>
+              <div><label><input type="checkbox" name="disminucionFactorAmbas" value="1/6"> 1/6 (Tentativa de delito especialmente grave)</label></div>
+            </div>
+          </div>
+          <button id="btnCalcularAmbas" class="main-button">Calcular</button>
+        </div>
+
+        <div id="resultadoModulo01" class="result-box hidden">
+          <h4>Nuevo Marco Penal</h4>
+          <div id="textoResultadoModulo01" class="result-content"></div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 02: Sistema de determinación -->
+      <section id="module02" class="hidden">
+        <h2>Elegir sistema de determinación</h2>
+        <select id="sistemaDeterminacion">
+          <option value="" selected disabled>Seleccione un sistema</option>
+          <option value="tercios">Sistema de tercios</option>
+          <option value="escalonado">Sistema escalonado</option>
+        </select>
+      </section>
+
+      <!-- MÓDULO 03: Tercios -->
+      <section id="module03" class="hidden">
+        <h2>Sistema de tercios</h2>
+        <div class="pena-display">
+          <fieldset><legend>Extremo mínimo</legend><span id="terciosMinDisplay"></span></fieldset>
+          <fieldset><legend>Extremo máximo</legend><span id="terciosMaxDisplay"></span></fieldset>
+        </div>
+        <button id="btnDividirTercios" class="main-button">Dividir</button>
+        <div id="resultadoModulo03" class="result-box hidden">
+          <div class="result-content" id="contenidoResultadoModulo03"></div>
+          <div class="action-buttons">
+            <button class="action-button copy-button" data-target="contenidoResultadoModulo03">Copiar</button>
+            <button class="action-button whatsapp-button" data-target="contenidoResultadoModulo03">Compartir</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 04: Escalonado -->
+      <section id="module04" class="hidden">
+        <h2>Sistema escalonado</h2>
+        <div class="pena-display">
+          <fieldset><legend>Extremo mínimo</legend><span id="escalonadoMinDisplay"></span></fieldset>
+          <fieldset><legend>Extremo máximo</legend><span id="escalonadoMaxDisplay"></span></fieldset>
+        </div>
+        <div class="input-group-inline">
+          <label for="agravantesTipo">Cantidad de agravantes del tipo penal:</label>
+          <input type="number" id="agravantesTipo" min="1" inputmode="numeric">
+        </div>
+        <div class="input-group-inline">
+          <label for="agravantesCaso">Cantidad de agravantes del caso concreto:</label>
+          <input type="number" id="agravantesCaso" min="0" inputmode="numeric">
+        </div>
+        <button id="btnCalcularEscalonado" class="main-button">Calcular</button>
+        <div id="resultadoModulo04" class="result-box hidden">
+          <div class="result-content" id="contenidoResultadoModulo04"></div>
+          <div class="action-buttons">
+            <button class="action-button copy-button" data-target="contenidoResultadoModulo04">Copiar</button>
+            <button class="action-button whatsapp-button" data-target="contenidoResultadoModulo04">Compartir</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 05: Reducción -->
+      <section id="module05" class="hidden">
+        <h2>Reducción sobre pena concreta</h2>
+        <div class="checkbox-group">
+          <div><label><input type="checkbox" name="reduccionPena" value="1/2"> 1/2 (Colaboración eficaz)</label></div>
+          <div><label><input type="checkbox" name="reduccionPena" value="1/3"> 1/3 (Confesión sincera)</label></div>
+          <div><label><input type="checkbox" name="reduccionPena" value="1/4"> 1/4 (Interés superior del niño, Plazo razonable)</label></div>
+          <div><label><input type="checkbox" name="reduccionPena" value="1/6"> 1/6 (Terminación anticipada, Violencia o amenaza mínima, Valor del bien no supera 5% UIT, Arma simulada)</label></div>
+          <div><label><input type="checkbox" name="reduccionPena" value="1/7"> 1/7 (Reparación espontánea del daño, Devolución del bien)</label></div>
+        </div>
+        <button id="btnCalcularReduccion" class="main-button">Calcular Reducción</button>
+        <div id="resultadoModulo05" class="result-box hidden">
+          <div class="result-content" id="contenidoResultadoModulo05"></div>
+          <div class="action-buttons">
+            <button class="action-button copy-button" data-target="contenidoResultadoModulo05">Copiar</button>
+            <button class="action-button whatsapp-button" data-target="contenidoResultadoModulo05">Compartir</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 06: Conversión a jornadas -->
+      <section id="module06" class="hidden">
+        <h2>Conversión a Jornadas de servicios comunitarios</h2>
+        <p class="instruction" style="margin-bottom:12px">
+          Pena a convertir: <strong id="penaConcretaDisplay" style="color:var(--vs-acento)">—</strong>
+          <span style="font-size:11px;color:var(--text-soft);display:block;margin-top:3px">
+            Art. 52 CP — Convertible hasta 5 años. Art. 34.5 CP — Máximo 156 jornadas (= 3 años).
+          </span>
+        </p>
+        <div id="module06Bloqueado" class="result-box hidden" style="margin-top:0;margin-bottom:12px">
+          <p>⚠️ No es posible convertir: el marco abstracto supera los 5 años (art. 52 CP).</p>
+        </div>
+        <div id="module06Activo">
+          <button id="btnConvertirJornadas" class="main-button">Convertir</button>
+          <div id="resultadoModulo06" class="result-box hidden">
+            <div class="result-content" id="contenidoResultadoModulo06"></div>
+            <div class="action-buttons">
+              <button class="action-button copy-button" data-target="contenidoResultadoModulo06">Copiar</button>
+              <button class="action-button whatsapp-button" data-target="contenidoResultadoModulo06">Compartir</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESUMEN FINAL -->
+      <section id="finalSummary" class="hidden">
+        <h2>Resumen del Cálculo</h2>
+        <div id="summaryContent" class="result-box"></div>
+        <div class="action-buttons summary-buttons">
+          <button id="btnCopiarResumen" class="action-button copy-button-yellow">Copiar Resumen</button>
+          <button id="btnCompartirResumen" class="action-button whatsapp-button">Compartir Resumen</button>
+        </div>
+      </section>
+
+      <button id="btnNuevoCalculo" class="reset-button hidden">Nuevo Cálculo</button>
+
+    </main>
+  </div><!-- /tab-ppl -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 2 — DÍAS-MULTA
+  ══════════════════════════════════════════════ -->
+  <div id="tab-multa" class="tab-content">
+    <main id="main-multa">
+
+      <!-- Haber mensual -->
+      <section>
+        <h2>Haber mensual</h2>
+        <div class="input-group">
+          <label for="haberMensual">Ingresa el haber mensual (S/)</label>
+          <input type="number" id="haberMensual" inputmode="decimal" placeholder="Ej: 1405.05" step="0.01">
+        </div>
+        <div class="input-group">
+          <label for="haberPredefinido">O elige una RMV predefinida</label>
+          <select id="haberPredefinido">
+            <option value="">— Seleccione una opción —</option>
+            <option value="930.00">RMV Abr 2018 = S/ 930.00 &nbsp;(D.S. 004-2018-TR)</option>
+            <option value="1025.00">RMV May 2022 = S/ 1,025.00 &nbsp;(D.S. 003-2022-TR)</option>
+            <option value="1130.00">RMV Ene 2025 = S/ 1,130.00 &nbsp;(D.S. 006-2024-TR) ✓ Vigente</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Parámetros -->
+      <section>
+        <h2>Parámetros de la multa</h2>
+        <div class="input-group">
+          <label for="porcentaje">Porcentaje del haber diario (entre 25% y 50%)</label>
+          <input type="number" id="porcentaje" inputmode="decimal" placeholder="Ej: 25" min="25" max="50" step="0.01">
+        </div>
+        <div class="input-group">
+          <label for="diasMulta">Cantidad de días-multa (entre 10 y 730)</label>
+          <input type="number" id="diasMulta" inputmode="numeric" min="10" max="730" placeholder="Ej: 120">
+        </div>
+      </section>
+
+      <!-- Resultados -->
+      <section id="seccionResultados">
+        <h2>Resultado</h2>
+        <div class="resultados" aria-live="polite">
+          <div class="resultado-fila">
+            <span>Haber diario:</span>
+            <strong id="haberDiario">S/ 0.00</strong>
+          </div>
+          <div class="resultado-fila">
+            <span>Valor de cada día-multa:</span>
+            <strong id="valorDiaMulta">S/ 0.00</strong>
+          </div>
+          <div class="resultado-fila">
+            <span>Cantidad de días-multa:</span>
+            <strong id="cantidadDias">0</strong>
+          </div>
+          <div class="resultado-fila resultado-final">
+            <span>Monto final:</span>
+            <strong id="montoFinal">S/ 0.00</strong>
+          </div>
+          <p class="nota-legal">El plazo para el pago es de diez días de pronunciada la sentencia (art. 44 CP).</p>
+          <p class="nota-calculo">Los cálculos se han obtenido considerando solo dos decimales.</p>
+        </div>
+        <div class="action-buttons">
+          <button id="copiar"   class="action-button copy-button-yellow" type="button">Copiar resultado</button>
+          <button id="whatsapp" class="action-button whatsapp-button"    type="button">Compartir por WhatsApp</button>
+          <button id="nuevo"    class="reset-button"                     type="button">Nuevo cálculo</button>
+        </div>
+      </section>
+
+      <!-- Descuentos -->
+      <section class="bonus-section">
+        <h2>Descuentos</h2>
+        <p class="instruction">Aplica el beneficio de reducción de la pena sobre el monto final calculado.</p>
+        <div class="action-buttons">
+          <button id="descuentoSexto"   class="action-button btn-descuento" type="button">Descontar 1/6 — Terminación anticipada</button>
+          <button id="descuentoSeptimo" class="action-button btn-descuento" type="button">Descontar 1/7 — Conclusión anticipada</button>
+        </div>
+        <div id="resultadosDescuentoWrapper" class="result-box" style="display:none">
+          <div class="resultado-fila">
+            <span>Tipo de descuento:</span>
+            <strong id="tipoDescuento"></strong>
+          </div>
+          <div class="resultado-fila">
+            <span>Monto descontado:</span>
+            <strong id="montoDescontado"></strong>
+          </div>
+          <div class="resultado-fila resultado-final">
+            <span>Monto total con descuento:</span>
+            <strong id="resultadoFinalDescuento"></strong>
+          </div>
+          <div class="action-buttons" id="botonesDescuento" style="display:none">
+            <button id="copiarDescuento"   class="action-button copy-button-yellow" type="button">Copiar resultado con descuento</button>
+            <button id="whatsappDescuento" class="action-button whatsapp-button"    type="button">Compartir por WhatsApp</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div><!-- /tab-multa -->
+
+</div><!-- /container -->
+
+<script src="app.js"></script>
+<script src="multa.js"></script>
+</body>
+</html>
