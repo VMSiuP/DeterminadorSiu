@@ -34,6 +34,19 @@
 
 <body>
 
+<!-- Botón de instalación PWA (Android / Chrome Desktop) -->
+<div id="installBanner" class="install-banner hidden">
+  <span>📲 Instala <strong>Determinador</strong> en tu dispositivo</span>
+  <button id="btnInstalar" class="btn-instalar">Instalar app</button>
+  <button id="btnCerrarInstall" class="btn-cerrar-install" aria-label="Cerrar">✕</button>
+</div>
+
+<!-- Banner iOS -->
+<div id="iosBanner" class="ios-banner hidden">
+  <span>📲 En iPhone: toca <strong>Compartir</strong> → <strong>Añadir a pantalla de inicio</strong></span>
+  <button id="btnCerrarIos" class="btn-cerrar-install" aria-label="Cerrar">✕</button>
+</div>
+
 <!-- Banner offline -->
 <div id="offlineBanner">⚠️ Sin conexión a internet — la app funciona en modo offline</div>
 
