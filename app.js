@@ -3,7 +3,7 @@
 // Esta app fue creada por Víctor Manuel Siu Puyén
 // Fiscal — Fiscalía de Piura, Perú
 // Contacto: https://wa.me/51969761336
-// Hecha con cariño para Cindy, Andrés y Abril ❤️
+// Hecha con amor para Cindy, Andrés y Abril ❤️
 // "Pena concreta fácilmente."
 // ID: VMSIUP-DET-v3 © 2025
 // ═══════════════════════════════════════════════════
@@ -35,6 +35,66 @@ if ('serviceWorker' in navigator) {
 // ── Offline banner ───────────────────────────────────────────────────
 window.addEventListener('offline', () => { document.getElementById('offlineBanner').style.display = 'block'; });
 window.addEventListener('online',  () => { document.getElementById('offlineBanner').style.display = 'none';  });
+
+// ════════════════════════════════════════════════════════════════════
+//  INSTALACIÓN PWA
+//  - Android/Chrome Desktop: evento beforeinstallprompt
+//  - iOS/Safari: detección manual + instrucciones
+//  El banner desaparece al instalar o al cerrarlo (se guarda en localStorage)
+// ════════════════════════════════════════════════════════════════════
+(function initInstall() {
+  const installBanner  = document.getElementById('installBanner');
+  const iosBanner      = document.getElementById('iosBanner');
+  const btnInstalar    = document.getElementById('btnInstalar');
+  const btnCerrarInst  = document.getElementById('btnCerrarInstall');
+  const btnCerrarIos   = document.getElementById('btnCerrarIos');
+  let deferredPrompt   = null;
+
+  // No mostrar si el usuario ya lo cerró antes
+  const yaInstalado = localStorage.getItem('det-install-cerrado');
+  if (yaInstalado) return;
+
+  // ── Android / Chrome Desktop ──────────────────────────────────────
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBanner.classList.remove('hidden');
+  });
+
+  btnInstalar.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBanner.classList.add('hidden');
+    if (outcome === 'accepted') localStorage.setItem('det-install-cerrado', '1');
+  });
+
+  // Al instalar desde el navegador directamente
+  window.addEventListener('appinstalled', () => {
+    installBanner.classList.add('hidden');
+    localStorage.setItem('det-install-cerrado', '1');
+  });
+
+  // Cerrar banner manualmente
+  btnCerrarInst.addEventListener('click', () => {
+    installBanner.classList.add('hidden');
+    localStorage.setItem('det-install-cerrado', '1');
+  });
+
+  // ── iOS / Safari ──────────────────────────────────────────────────
+  // Safari no dispara beforeinstallprompt — detectar manualmente
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isInStandaloneMode = window.navigator.standalone === true;
+  if (isIos && !isInStandaloneMode) {
+    iosBanner.classList.remove('hidden');
+  }
+  btnCerrarIos.addEventListener('click', () => {
+    iosBanner.classList.add('hidden');
+    localStorage.setItem('det-install-cerrado', '1');
+  });
+
+})();
 
 // ════════════════════════════════════════════════════════════════════
 //  INICIALIZACIÓN GENERAL (tema + tabs) — se ejecuta inmediatamente
