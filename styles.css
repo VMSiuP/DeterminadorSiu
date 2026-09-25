@@ -483,3 +483,58 @@ body.dark-mode .btn-descuento { background: #2A2A4A; color: var(--vs-acento); }
   .input-group-inline input { width: 100%; }
   .tab-btn { font-size: 11px; padding: 8px 6px; }
 }
+
+/* --- BOTÓN DE INSTALACIÓN PWA --- */
+.install-banner,
+.ios-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  flex-wrap: wrap;
+}
+.install-banner {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+  color: rgba(255,255,255,.9);
+  border-bottom: 2px solid var(--vs-acento);
+}
+.ios-banner {
+  background: #16213E;
+  color: rgba(255,255,255,.85);
+  border-bottom: 1px solid rgba(200,168,75,.3);
+  font-size: 12.5px;
+}
+.install-banner span,
+.ios-banner span { flex: 1; }
+.install-banner strong,
+.ios-banner strong { color: var(--vs-acento); }
+
+.btn-instalar {
+  background: var(--vs-acento);
+  color: var(--vs-oscuro);
+  border: none;
+  border-radius: 20px;
+  padding: 7px 18px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s, transform .1s;
+  flex-shrink: 0;
+}
+.btn-instalar:hover { background: var(--vs-acento2); transform: scale(1.03); }
+
+.btn-cerrar-install {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  flex-shrink: 0;
+  transition: color .2s;
+}
+.btn-cerrar-install:hover { color: white; }
